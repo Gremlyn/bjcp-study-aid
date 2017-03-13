@@ -1,0 +1,13 @@
+<hr />
+<div class="row">
+  <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8">
+    <div class="text-center">
+      <a href="{{ path('index') }}">Home</a> |
+      {% if app.request.get('header') != 'remove' %}
+        <a href="{{ path(app.request.attributes.get('_route')) }}?header=remove">Hide Header</a>
+      {% else %}
+        <a href="{{ path(app.request.attributes.get('_route')) }}">Show Header</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

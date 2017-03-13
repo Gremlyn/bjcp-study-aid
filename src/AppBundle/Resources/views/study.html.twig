@@ -1,0 +1,75 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Study Mode{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8">
+      <h1 class="page-header text-center hidden-sm hidden-xs">
+        Gremlyn's BJCP Study Aid<br />
+        <small>Study Mode</small>
+      </h1>
+      <h1 class="page-header-mobile text-center hidden-lg hidden-md">
+        Gremlyn's BJCP Study Aid<br />
+        <small>Study Mode</small>
+      </h1>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <button class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="New Card">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>
+          <button class="btn btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="New Card">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>
+          <h3 class="hidden-sm hidden-xs">{{ subcategory.id }} - {{ subcategory.name }}</h3>
+          <h3 class="h3-mobile hidden-lg hidden-md">{{ subcategory.id }} - {{ subcategory.name }}</h3>
+        </div>
+        <div class="panel-body">
+          <p><strong>Impression:</strong> {{ subcategory.impression }}</p>
+          <p><strong>Aroma:</strong> {{ subcategory.aroma }}</p>
+          <p><strong>Appearance:</strong> {{ subcategory.appearance }}</p>
+          <p><strong>Flavor:</strong> {{ subcategory.flavor }}</p>
+          <p><strong>Mouthfeel:</strong> {{ subcategory.mouthfeel }}</p>
+          <p><strong>Comments:</strong> {{ subcategory.comments }}</p>
+          <p><strong>History:</strong> {{ subcategory.history }}</p>
+          <p><strong>Ingredients:</strong> {{ subcategory.ingredients }}</p>
+          <p><strong>Comparison:</strong> {{ subcategory.comparison }}</p>
+          {% if subcategory.stats.og is defined %}
+            <strong>Stats:</strong>
+            <table class="table table-striped">
+              <tbody>
+              <tr>
+                <td>OG:</td>
+                <td>{{ subcategory.stats.og.low }} - {{ subcategory.stats.og.high }}</td>
+              </tr>
+              <tr>
+                <td>FG:</td>
+                <td>{{ subcategory.stats.fg.low }} - {{ subcategory.stats.fg.high }}</td>
+              </tr>
+              <tr>
+                <td>IBU:</td>
+                <td>{{ subcategory.stats.ibu.low }} - {{ subcategory.stats.ibu.high }}</td>
+              </tr>
+              <tr>
+                <td>SRM:</td>
+                <td>{{ subcategory.stats.srm.low }} - {{ subcategory.stats.srm.high }}</td>
+              </tr>
+              <tr>
+                <td>ABV:</td>
+                <td>{{ subcategory.stats.abv.low }} - {{ subcategory.stats.abv.high }}</td>
+              </tr>
+            </table>
+          {% elseif subcategory.stats.exceptions is defined %}
+            <p><strong>Stats:</strong> {{ subcategory.stats.exceptions }}</p>
+          {% endif %}
+          {% if subcategory.examples is iterable %}
+            <p><strong>Examples:</strong> {{ subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}</p>
+          {% else %}
+            <p><strong>Examples:</strong> {{ subcategory.examples }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

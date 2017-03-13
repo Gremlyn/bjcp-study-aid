@@ -1,0 +1,80 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Quiz Mode{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8">
+      <h1 class="page-header text-center hidden-sm hidden-xs">
+        Gremlyn's BJCP Study Aid<br />
+        <small>Quiz Mode</small>
+      </h1>
+      <h1 class="page-header-mobile text-center hidden-lg hidden-md">
+        Gremlyn's BJCP Study Aid<br />
+        <small>Quiz Mode</small>
+      </h1>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <button class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="New Card">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>
+          <button class="btn btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="New Card">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>
+          <h3 class="hidden-sm hidden-xs">{{ info.id }} - {{ info.name }}</h3>
+          <h3 class="h3-mobile hidden-lg hidden-md">{{ info.id }} - {{ info.name }}</h3>
+        </div>
+        <div class="panel-body">
+          <div id="question">
+            <h4>
+              Describe the <strong>{{ info.property|capitalize }}</strong>.
+            </h4>
+            <button class="btn btn-primary" id="show-fact">Show Info</button>
+          </div>
+          <div id="fact" class="hidden">
+            <h3 class="hidden-sm hidden-xs">{{ info.property|capitalize }}:</h3>
+            <h3 class="h3-mobile hidden-lg hidden-md">{{ info.property|capitalize }}:</h3>
+
+            {% if info.property == 'stats' %}
+              {% if info.info.og is defined %}
+                <table class="table table-striped">
+                  <tbody>
+                  <tr>
+                    <td>OG:</td>
+                    <td>{{ info.info.og.low }} - {{ info.info.og.high }}</td>
+                  </tr>
+                  <tr>
+                    <td>FG:</td>
+                    <td>{{ info.info.fg.low }} - {{ info.info.fg.high }}</td>
+                  </tr>
+                  <tr>
+                    <td>IBU:</td>
+                    <td>{{ info.info.ibu.low }} - {{ info.info.ibu.high }}</td>
+                  </tr>
+                  <tr>
+                    <td>SRM:</td>
+                    <td>{{ info.info.srm.low }} - {{ info.info.srm.high }}</td>
+                  </tr>
+                  <tr>
+                    <td>ABV:</td>
+                    <td>{{ info.info.abv.low }} - {{ info.info.abv.high }}</td>
+                  </tr>
+                </table>
+              {% elseif info.info.exceptions is defined %}
+                <p>{{ info.info.exceptions }}</p>
+              {% endif %}
+            {% elseif info.property == 'examples' and info.info is iterable %}
+              <p>{{ info.info|join(', ') }}</p>
+            {% else %}
+              <p>{{ info.info }}</p>
+            {% endif %}
+            <div style="text-align: center">
+              <button class="btn btn-primary" id="hide-fact">Hide Info</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

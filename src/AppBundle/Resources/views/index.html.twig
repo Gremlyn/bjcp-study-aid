@@ -1,0 +1,25 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8">
+      <h1 class="text-center">Gremlyn's BJCP Study Aid</h1>
+
+      <p>
+        This simple site provides two options to assist in studying the 2015 BJCP Style Guidelines:
+      </p>
+      <ul>
+        <li><strong>Study Mode:</strong> shows you a randomly selected subcategory card to read and memorise.</li>
+        <li>
+          <strong>Quiz Mode:</strong> selects a random subcategory and asks you to describe one part of the
+                                      subcategory's information. You can check your knowledge by showing the answer.
+        </li>
+      </ul>
+
+      <div class="text-center">
+        <a href="{{ path('study') }}" class="btn btn-lg btn-primary">Study Mode</a>
+        <a href="{{ path('quiz') }}" class="btn btn-lg btn-success">Quiz Mode</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+services:
+    hydrator:
+        class: AppBundle\Service\Hydrator
+
+    beer.info:
+        class: AppBundle\Service\BeerInfo
+        arguments: ['@hydrator']
+
+    output.twig.extension:
+        class: AppBundle\Twig\OutputExtension
+        tags:
+            - { name: twig.extension }

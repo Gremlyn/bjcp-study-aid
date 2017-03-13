@@ -1,0 +1,24 @@
+#question {
+    text-align: center;
+}
+
+.card-refresh {
+    margin-top: 10px;
+}
+
+.card-refresh-mobile {
+    margin-top: -3px;
+}
+
+.h3-mobile {
+    margin: 5px 0;
+    font-size: 1.23em !important;
+}
+
+.page-header {
+    font-size: 2em !important;
+}
+
+.page-header-mobile {
+    font-size: 1.5em !important;
+}

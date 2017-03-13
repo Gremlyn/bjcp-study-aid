@@ -1,0 +1,11 @@
+index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
+quiz:
+    path: /quiz
+    defaults: { _controller: AppBundle:Default:quiz }
+
+study:
+    path: /study
+    defaults: { _controller: AppBundle:Default:study }
