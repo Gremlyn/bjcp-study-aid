@@ -5,41 +5,43 @@
 {% block content %}
   <div class="row">
     <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8">
-      <h1 class="page-header text-center hidden-sm hidden-xs">
-        Gremlyn's BJCP Study Aid<br />
-        <small>Study Mode</small>
-      </h1>
-      <h1 class="page-header-mobile text-center hidden-lg hidden-md">
+      <h1 class="page-header text-center">
         Gremlyn's BJCP Study Aid<br />
         <small>Study Mode</small>
       </h1>
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <button class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Random">
+          <button class="btn btn-default pull-right card-nav-btn card-refresh" title="Random">
             <span class="glyphicon glyphicon-random"></span>
           </button>
           <!-- Desktop/Tablet Buttons Start-->
-          <a href="{{ path('study') }}?l={{ subcategory.next }}&{{ query }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+          <a href="{{ path('study') }}?l={{ subcategory.next }}&{{ query }}"
+             class="btn btn-default pull-right card-nav-btn" title="Next">
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
-          <a href="{{ path('study') }}?l={{ subcategory.prev }}&{{ query }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+          <a href="{{ path('study') }}?l={{ subcategory.prev }}&{{ query }}"
+             class="btn btn-default pull-right card-nav-btn" title="Next">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
           <!-- Desktop/Tablet Buttons End-->
-          <!-- Mobile Buttons Start-->
-          <button class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Random">
-            <span class="glyphicon glyphicon-random"></span>
-          </button>
-          <a href="{{ path('study') }}?l={{ subcategory.next }}" class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-          <a href="{{ path('study') }}?l={{ subcategory.prev }}" class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Next">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-          <!-- Mobile Buttons End-->
-          <h3 class="hidden-sm hidden-xs">{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}</h3>
-          <h3 class="h3-mobile hidden-lg hidden-md">{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}</h3>
+          <div class="show-header">
+            <h3 class="hidden-sm hidden-xs">{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}</h3>
+            <h3 class="h3-mobile hidden-lg hidden-md">
+              {{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}
+            </h3>
+          </div>
+          <div class="show-select hidden">
+            <select class="form-control">
+              {% for cat_idx, category in categories %}
+                <optgroup label="{{ category.id }} - {{ category.name }}">
+                  {% for subcat_idx, subcat in category.subcategories %}
+                    <option value="{{ cat_idx }}cs{{ subcat_idx }}" {% if subcat.id == subcategory.subcategory.id %}selected{% endif %}>{{ subcat.id }} - {{ subcat.name }}</option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            </select>
+          </div>
         </div>
         <div class="panel-body">
           <p><strong>Impression:</strong> {{ subcategory.subcategory.impression }}</p>
@@ -80,7 +82,9 @@
             <p><strong>Stats:</strong> {{ subcategory.subcategory.stats.exceptions }}</p>
           {% endif %}
           {% if subcategory.subcategory.examples is iterable %}
-            <p><strong>Examples:</strong> {{ subcategory.subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}</p>
+            <p>
+              <strong>Examples:</strong> {{ subcategory.subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}
+            </p>
           {% else %}
             <p><strong>Examples:</strong> {{ subcategory.subcategory.examples }}</p>
           {% endif %}

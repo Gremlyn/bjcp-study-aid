@@ -28,6 +28,8 @@ class DefaultController extends Controller
     {
         $beer_info = $this->get('beer.info');
 
+        $categories = $beer_info->getCategories();
+
         $locator = $request->query->get('l');
 
         if ($locator) {
@@ -39,6 +41,7 @@ class DefaultController extends Controller
         $subcategory_info = $beer_info->getSubcategoryInfo($subcategory);
 
         return $this->render('@App/study.html.twig', [
+            'categories'  => $categories,
             'subcategory' => $subcategory_info
         ]);
     }
