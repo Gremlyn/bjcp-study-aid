@@ -17,7 +17,7 @@ class DefaultController extends Controller
     {
         $beer_info = $this->get('beer.info');
 
-        $info = $beer_info->getRandomSubcategoryInfo(['id','tags']);
+        $info = $beer_info->getRandomSubcategoryInfo(['id', 'tags']);
 
         return $this->render('@App/quiz.html.twig', [
             'info' => $info
@@ -28,10 +28,18 @@ class DefaultController extends Controller
     {
         $beer_info = $this->get('beer.info');
 
-        $subcategory = $beer_info->getRandomSubcategory();
+        $locator = $request->query->get('l');
+
+        if ($locator) {
+            $subcategory = $beer_info->getSubcategoryByLocator($locator);
+        } else {
+            $subcategory = $beer_info->getRandomSubcategory();
+        }
+
+        $subcategory_info = $beer_info->getSubcategoryInfo($subcategory);
 
         return $this->render('@App/study.html.twig', [
-            'subcategory' => $subcategory
+            'subcategory' => $subcategory_info
         ]);
     }
 }

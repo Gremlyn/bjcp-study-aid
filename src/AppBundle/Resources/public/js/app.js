@@ -13,9 +13,9 @@ $('#hide-fact').click(function (e) {
 });
 
 $('.card-refresh').click(function (e) {
-   location.reload(true);
+    window.location = window.location.href.split("?")[0];
 });
 
 $('.card-refresh-mobile').click(function (e) {
-    location.reload(true);
+    window.location = window.location.href.split("?")[0];
 });

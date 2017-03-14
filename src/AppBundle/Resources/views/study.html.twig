@@ -16,57 +16,73 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <button class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="New Card">
-            <span class="glyphicon glyphicon-refresh"></span>
+          <button class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Random">
+            <span class="glyphicon glyphicon-random"></span>
           </button>
-          <button class="btn btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="New Card">
-            <span class="glyphicon glyphicon-refresh"></span>
+          <!-- Desktop/Tablet Buttons Start-->
+          <a href="{{ path('study') }}?l={{ subcategory.next }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <a href="{{ path('study') }}?l={{ subcategory.prev }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <!-- Desktop/Tablet Buttons End-->
+          <!-- Mobile Buttons Start-->
+          <button class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Random">
+            <span class="glyphicon glyphicon-random"></span>
           </button>
-          <h3 class="hidden-sm hidden-xs">{{ subcategory.id }} - {{ subcategory.name }}</h3>
-          <h3 class="h3-mobile hidden-lg hidden-md">{{ subcategory.id }} - {{ subcategory.name }}</h3>
+          <a href="{{ path('study') }}?l={{ subcategory.next }}" class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+          <a href="{{ path('study') }}?l={{ subcategory.prev }}" class="btn btn-sm btn-default pull-right card-refresh-mobile hidden-lg hidden-md" title="Next">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <!-- Mobile Buttons End-->
+          <h3 class="hidden-sm hidden-xs">{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}</h3>
+          <h3 class="h3-mobile hidden-lg hidden-md">{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}</h3>
         </div>
         <div class="panel-body">
-          <p><strong>Impression:</strong> {{ subcategory.impression }}</p>
-          <p><strong>Aroma:</strong> {{ subcategory.aroma }}</p>
-          <p><strong>Appearance:</strong> {{ subcategory.appearance }}</p>
-          <p><strong>Flavor:</strong> {{ subcategory.flavor }}</p>
-          <p><strong>Mouthfeel:</strong> {{ subcategory.mouthfeel }}</p>
-          <p><strong>Comments:</strong> {{ subcategory.comments }}</p>
-          <p><strong>History:</strong> {{ subcategory.history }}</p>
-          <p><strong>Ingredients:</strong> {{ subcategory.ingredients }}</p>
-          <p><strong>Comparison:</strong> {{ subcategory.comparison }}</p>
-          {% if subcategory.stats.og is defined %}
+          <p><strong>Impression:</strong> {{ subcategory.subcategory.impression }}</p>
+          <p><strong>Aroma:</strong> {{ subcategory.subcategory.aroma }}</p>
+          <p><strong>Appearance:</strong> {{ subcategory.subcategory.appearance }}</p>
+          <p><strong>Flavor:</strong> {{ subcategory.subcategory.flavor }}</p>
+          <p><strong>Mouthfeel:</strong> {{ subcategory.subcategory.mouthfeel }}</p>
+          <p><strong>Comments:</strong> {{ subcategory.subcategory.comments }}</p>
+          <p><strong>History:</strong> {{ subcategory.subcategory.history }}</p>
+          <p><strong>Ingredients:</strong> {{ subcategory.subcategory.ingredients }}</p>
+          <p><strong>Comparison:</strong> {{ subcategory.subcategory.comparison }}</p>
+          {% if subcategory.subcategory.stats.og is defined %}
             <strong>Stats:</strong>
             <table class="table table-striped">
               <tbody>
               <tr>
                 <td>OG:</td>
-                <td>{{ subcategory.stats.og.low }} - {{ subcategory.stats.og.high }}</td>
+                <td>{{ subcategory.subcategory.stats.og.low }} - {{ subcategory.subcategory.stats.og.high }}</td>
               </tr>
               <tr>
                 <td>FG:</td>
-                <td>{{ subcategory.stats.fg.low }} - {{ subcategory.stats.fg.high }}</td>
+                <td>{{ subcategory.subcategory.stats.fg.low }} - {{ subcategory.subcategory.stats.fg.high }}</td>
               </tr>
               <tr>
                 <td>IBU:</td>
-                <td>{{ subcategory.stats.ibu.low }} - {{ subcategory.stats.ibu.high }}</td>
+                <td>{{ subcategory.subcategory.stats.ibu.low }} - {{ subcategory.subcategory.stats.ibu.high }}</td>
               </tr>
               <tr>
                 <td>SRM:</td>
-                <td>{{ subcategory.stats.srm.low }} - {{ subcategory.stats.srm.high }}</td>
+                <td>{{ subcategory.subcategory.stats.srm.low }} - {{ subcategory.subcategory.stats.srm.high }}</td>
               </tr>
               <tr>
                 <td>ABV:</td>
-                <td>{{ subcategory.stats.abv.low }} - {{ subcategory.stats.abv.high }}</td>
+                <td>{{ subcategory.subcategory.stats.abv.low }} - {{ subcategory.subcategory.stats.abv.high }}</td>
               </tr>
             </table>
-          {% elseif subcategory.stats.exceptions is defined %}
-            <p><strong>Stats:</strong> {{ subcategory.stats.exceptions }}</p>
+          {% elseif subcategory.subcategory.stats.exceptions is defined %}
+            <p><strong>Stats:</strong> {{ subcategory.subcategory.stats.exceptions }}</p>
           {% endif %}
-          {% if subcategory.examples is iterable %}
-            <p><strong>Examples:</strong> {{ subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}</p>
+          {% if subcategory.subcategory.examples is iterable %}
+            <p><strong>Examples:</strong> {{ subcategory.subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}</p>
           {% else %}
-            <p><strong>Examples:</strong> {{ subcategory.examples }}</p>
+            <p><strong>Examples:</strong> {{ subcategory.subcategory.examples }}</p>
           {% endif %}
         </div>
       </div>

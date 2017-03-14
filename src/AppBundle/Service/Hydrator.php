@@ -45,6 +45,10 @@ class Hydrator
                         } else {
                             $subclass = $this->hydrate($v, $class->getName());
 
+                            if (property_exists($subclass, 'parent')) {
+                                $subclass->setParent($data['id']);
+                            }
+
                             $entity->$add_method($subclass);
                         }
                     }

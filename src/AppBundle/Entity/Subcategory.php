@@ -75,6 +75,11 @@ class Subcategory
     protected $stats;
 
     /**
+     * @var int
+     */
+    protected $parent;
+
+    /**
      * @return string
      */
     public function getId()
@@ -89,9 +94,9 @@ class Subcategory
      */
     public function setId($id)
     {
-        if (strpos($id,'-') !== FALSE) {
-            $explode = explode('-',$id);
-            $id = $explode[0] . ' (' . $explode[1] .')';
+        if (strpos($id, '-') !== FALSE) {
+            $explode = explode('-', $id);
+            $id      = $explode[0] . ' (' . $explode[1] . ')';
         }
 
         $this->id = $id;
@@ -114,9 +119,9 @@ class Subcategory
      */
     public function setName($name)
     {
-        if (strpos($name,': ') !== FALSE) {
-            $explode = explode(': ',$name);
-            $name = $explode[1];
+        if (strpos($name, ': ') !== FALSE) {
+            $explode = explode(': ', $name);
+            $name    = $explode[1];
         }
 
         $this->name = $name;
@@ -360,6 +365,26 @@ class Subcategory
     public function setStats($stats)
     {
         $this->stats = $stats;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param int $parent
+     *
+     * @return Subcategory
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
 
         return $this;
     }
