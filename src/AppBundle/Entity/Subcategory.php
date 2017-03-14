@@ -75,11 +75,6 @@ class Subcategory
     protected $stats;
 
     /**
-     * @var int
-     */
-    protected $parent;
-
-    /**
      * @return string
      */
     public function getId()
@@ -365,26 +360,6 @@ class Subcategory
     public function setStats($stats)
     {
         $this->stats = $stats;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @param int $parent
-     *
-     * @return Subcategory
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
 
         return $this;
     }

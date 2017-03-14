@@ -17,7 +17,7 @@ class DefaultController extends Controller
     {
         $beer_info = $this->get('beer.info');
 
-        $info = $beer_info->getRandomSubcategoryInfo(['id', 'tags']);
+        $info = $beer_info->getRandomSubcategoryInfo(['id', 'name', 'tags']);
 
         return $this->render('@App/quiz.html.twig', [
             'info' => $info
