@@ -18,6 +18,12 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/style.css') }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
+{% set query = '' %}
+{% if app.request.get('header') == 'remove' %}
+  {% set query = 'header=remove' %}
+{% endif %}
+
 <body>
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

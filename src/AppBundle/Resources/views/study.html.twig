@@ -20,10 +20,10 @@
             <span class="glyphicon glyphicon-random"></span>
           </button>
           <!-- Desktop/Tablet Buttons Start-->
-          <a href="{{ path('study') }}?l={{ subcategory.next }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+          <a href="{{ path('study') }}?l={{ subcategory.next }}&{{ query }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
-          <a href="{{ path('study') }}?l={{ subcategory.prev }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
+          <a href="{{ path('study') }}?l={{ subcategory.prev }}&{{ query }}" class="btn btn-default pull-right card-refresh hidden-sm hidden-xs" title="Next">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
           <!-- Desktop/Tablet Buttons End-->
