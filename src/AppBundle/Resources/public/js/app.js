@@ -6,7 +6,7 @@ function refreshPage(locator) {
         query = '?header=remove';
     }
 
-    if (typeof locator !== undefined) {
+    if (locator !== undefined) {
         if (query === '') {
             query = '?'
         } else {
