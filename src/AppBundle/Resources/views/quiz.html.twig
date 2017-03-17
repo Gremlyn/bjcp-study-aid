@@ -64,8 +64,8 @@
               {% elseif info.info.exceptions is defined %}
                 <p>{{ info.info.exceptions }}</p>
               {% endif %}
-            {% elseif info.property == 'examples' and info.info is iterable %}
-              <p>{{ info.info|join(', ') }}</p>
+            {% elseif info.property == 'examples' and info.info is iterable%}
+              <p>{{ info.info|mutlidimensional_join(': ', ', ', '<br />')|raw }}</p>
             {% else %}
               <p>{{ info.info }}</p>
             {% endif %}
