@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bfb2c3c736e5fa14cc09fdcf0e2fb5cd",
-    "content-hash": "c62c6fafab35c7fe57318ba724e402df",
+    "hash": "544472da384a3c3b99c87ea224f4de52",
+    "content-hash": "2e41dca75f0d69f94084437770c005ca",
     "packages": [
         {
             "name": "aylien/textapi",
@@ -2144,7 +2144,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=7.0"
     },
     "platform-dev": []
 }
