@@ -4,10 +4,15 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Subcategory;
+use AYLIEN\TextAPI;
 use Symfony\Component\Finder\Finder;
 
 class BeerInfo
 {
+    /**
+     * @var TextAPI
+     */
+    private $aylien;
     /**
      * @var Finder
      */
@@ -25,9 +30,10 @@ class BeerInfo
      */
     private $categories;
 
-    public function __construct(Hydrator $hydrator)
+    public function __construct(Hydrator $hydrator, TextAPI $aylien)
     {
         $this->finder   = new Finder();
+        $this->aylien   = $aylien;
         $this->hydrator = $hydrator;
     }
 
@@ -151,8 +157,8 @@ class BeerInfo
 
     public function getSubcategoryInfo(Subcategory $subcategory)
     {
-        $categories = $this->getCategories();
-        $parent = $this->findSubcategoryParent($subcategory);
+        $categories    = $this->getCategories();
+        $parent        = $this->findSubcategoryParent($subcategory);
         $subcategories = $parent[1]->getSubcategories();
 
         $subcategory_index = NULL;
@@ -186,8 +192,27 @@ class BeerInfo
         return [
             'next'        => $next,
             'prev'        => $prev,
-            'subcategory' => $subcategories[$subcategory_index]
+            'subcategory' => $subcategories[$subcategory_index],
+            'summary'     => $this->getSubcategorySummary($subcategory)
         ];
+    }
+
+    public function getSubcategorySummary(Subcategory $subcategory)
+    {
+        $params = [
+            'title'                => $subcategory->getName(),
+            'text'                 => implode("\n", [
+                $subcategory->getImpression(),
+                $subcategory->getAppearance(),
+                $subcategory->getAroma(),
+                $subcategory->getFlavor(),
+                $subcategory->getMouthfeel(),
+                $subcategory->getComparison()
+            ]),
+            'sentences_percentage' => 25
+        ];
+
+        return $this->aylien->Summarize($params);
     }
 
     /**

@@ -1,10 +1,14 @@
 services:
+    aylien:
+        class: AYLIEN\TextAPI
+        arguments: ['%aylien_id%', '%aylien_key%']
+
     hydrator:
         class: AppBundle\Service\Hydrator
 
     beer.info:
         class: AppBundle\Service\BeerInfo
-        arguments: ['@hydrator']
+        arguments: ['@hydrator', '@aylien']
 
     output.twig.extension:
         class: AppBundle\Twig\OutputExtension

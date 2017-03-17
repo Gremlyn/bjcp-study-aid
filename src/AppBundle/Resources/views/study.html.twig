@@ -26,65 +26,112 @@
           </a>
           <!-- Desktop/Tablet Buttons End-->
           <div class="show-header">
-            <h3>{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }} <small><span class="glyphicon glyphicon-triangle-bottom"></span></small></h3>
+            <h3>{{ subcategory.subcategory.id }} - {{ subcategory.subcategory.name }}
+              <small><span class="glyphicon glyphicon-triangle-bottom"></span></small>
+            </h3>
           </div>
           <div class="show-select hidden">
             <select class="form-control">
               {% for cat_idx, category in categories %}
                 <optgroup label="{{ category.id }} - {{ category.name }}">
                   {% for subcat_idx, subcat in category.subcategories %}
-                    <option value="{{ cat_idx }}cs{{ subcat_idx }}" {% if subcat.id == subcategory.subcategory.id %}selected{% endif %}>{{ subcat.id }} - {{ subcat.name }}</option>
+                    <option value="{{ cat_idx }}cs{{ subcat_idx }}"
+                            {% if subcat.id == subcategory.subcategory.id %}selected{% endif %}>{{ subcat.id }}
+                      - {{ subcat.name }}</option>
                   {% endfor %}
                 </optgroup>
               {% endfor %}
             </select>
           </div>
         </div>
-        <div class="panel-body">
-          <p><strong>Impression:</strong> {{ subcategory.subcategory.impression }}</p>
-          <p><strong>Aroma:</strong> {{ subcategory.subcategory.aroma }}</p>
-          <p><strong>Appearance:</strong> {{ subcategory.subcategory.appearance }}</p>
-          <p><strong>Flavor:</strong> {{ subcategory.subcategory.flavor }}</p>
-          <p><strong>Mouthfeel:</strong> {{ subcategory.subcategory.mouthfeel }}</p>
-          <p><strong>Comments:</strong> {{ subcategory.subcategory.comments }}</p>
-          <p><strong>History:</strong> {{ subcategory.subcategory.history }}</p>
-          <p><strong>Ingredients:</strong> {{ subcategory.subcategory.ingredients }}</p>
-          <p><strong>Comparison:</strong> {{ subcategory.subcategory.comparison }}</p>
-          {% if subcategory.subcategory.stats.og is defined %}
-            <strong>Stats:</strong>
-            <table class="table table-striped">
-              <tbody>
-              <tr>
-                <td>OG:</td>
-                <td>{{ subcategory.subcategory.stats.og.low }} - {{ subcategory.subcategory.stats.og.high }}</td>
-              </tr>
-              <tr>
-                <td>FG:</td>
-                <td>{{ subcategory.subcategory.stats.fg.low }} - {{ subcategory.subcategory.stats.fg.high }}</td>
-              </tr>
-              <tr>
-                <td>IBU:</td>
-                <td>{{ subcategory.subcategory.stats.ibu.low }} - {{ subcategory.subcategory.stats.ibu.high }}</td>
-              </tr>
-              <tr>
-                <td>SRM:</td>
-                <td>{{ subcategory.subcategory.stats.srm.low }} - {{ subcategory.subcategory.stats.srm.high }}</td>
-              </tr>
-              <tr>
-                <td>ABV:</td>
-                <td>{{ subcategory.subcategory.stats.abv.low }} - {{ subcategory.subcategory.stats.abv.high }}</td>
-              </tr>
-            </table>
-          {% elseif subcategory.subcategory.stats.exceptions is defined %}
-            <p><strong>Stats:</strong> {{ subcategory.subcategory.stats.exceptions }}</p>
-          {% endif %}
-          {% if subcategory.subcategory.examples is iterable %}
-            <p>
-              <strong>Examples:</strong> {{ subcategory.subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}
-            </p>
-          {% else %}
-            <p><strong>Examples:</strong> {{ subcategory.subcategory.examples }}</p>
-          {% endif %}
+        <div class="panel-body" style="padding: 0;">
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              {% if subcategory.summary.sentences|length > 0 %}
+              <div class="panel-heading" id="summary-heading">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#summary-card">
+                    Summary
+                  </a>
+                </h4>
+              </div>
+              <div id="summary-card" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <ul>
+                    {% for sentence in subcategory.summary.sentences %}
+                      <li>{{ sentence }}</li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% else %}
+              {% set show_two = true %}
+            {% endif %}
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="information-heading">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                     href="#information-card">
+                    Full Information
+                  </a>
+                </h4>
+              </div>
+              <div id="information-card" class="panel-collapse collapse {% if show_two is defined %}in{% endif %}">
+                <div class="panel-body">
+                  <p><strong>Impression:</strong> {{ subcategory.subcategory.impression }}</p>
+                  <p><strong>Appearance:</strong> {{ subcategory.subcategory.appearance }}</p>
+                  <p><strong>Aroma:</strong> {{ subcategory.subcategory.aroma }}</p>
+                  <p><strong>Flavor:</strong> {{ subcategory.subcategory.flavor }}</p>
+                  <p><strong>Mouthfeel:</strong> {{ subcategory.subcategory.mouthfeel }}</p>
+                  <p><strong>Comments:</strong> {{ subcategory.subcategory.comments }}</p>
+                  <p><strong>History:</strong> {{ subcategory.subcategory.history }}</p>
+                  <p><strong>Ingredients:</strong> {{ subcategory.subcategory.ingredients }}</p>
+                  <p><strong>Comparison:</strong> {{ subcategory.subcategory.comparison }}</p>
+                  {% if subcategory.subcategory.stats.og is defined %}
+                    <strong>Stats:</strong>
+                    <table class="table table-striped">
+                      <tbody>
+                      <tr>
+                        <td>OG:</td>
+                        <td>{{ subcategory.subcategory.stats.og.low }}
+                          - {{ subcategory.subcategory.stats.og.high }}</td>
+                      </tr>
+                      <tr>
+                        <td>FG:</td>
+                        <td>{{ subcategory.subcategory.stats.fg.low }}
+                          - {{ subcategory.subcategory.stats.fg.high }}</td>
+                      </tr>
+                      <tr>
+                        <td>IBU:</td>
+                        <td>{{ subcategory.subcategory.stats.ibu.low }}
+                          - {{ subcategory.subcategory.stats.ibu.high }}</td>
+                      </tr>
+                      <tr>
+                        <td>SRM:</td>
+                        <td>{{ subcategory.subcategory.stats.srm.low }}
+                          - {{ subcategory.subcategory.stats.srm.high }}</td>
+                      </tr>
+                      <tr>
+                        <td>ABV:</td>
+                        <td>{{ subcategory.subcategory.stats.abv.low }}
+                          - {{ subcategory.subcategory.stats.abv.high }}</td>
+                      </tr>
+                    </table>
+                  {% elseif subcategory.subcategory.stats.exceptions is defined %}
+                    <p><strong>Stats:</strong> {{ subcategory.subcategory.stats.exceptions }}</p>
+                  {% endif %}
+                  {% if subcategory.subcategory.examples is iterable %}
+                    <p>
+                      <strong>Examples:</strong> {{ subcategory.subcategory.examples|mutlidimensional_join(': ', ', ', '<br />')|raw }}
+                    </p>
+                  {% else %}
+                    <p><strong>Examples:</strong> {{ subcategory.subcategory.examples }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
