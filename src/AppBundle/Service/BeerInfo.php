@@ -162,7 +162,7 @@ class BeerInfo
         $subcategory_index = NULL;
 
         foreach ($subcategories as $index => $potential) {
-            if ($subcategory === $potential) {
+            if ($subcategory->getId() === $potential->getId()) {
                 $subcategory_index = $index;
             }
         }
@@ -224,7 +224,7 @@ class BeerInfo
 
         foreach ($categories as $index => $category) {
             foreach ($category->getSubcategories() as $potential) {
-                if ($subcategory === $potential) {
+                if ($subcategory->getId() === $potential->getId()) {
                     return [
                         $index,
                         $category
