@@ -45,34 +45,32 @@ class BeerInfo
      */
     public function getCategories($type = 'beer')
     {
-        if (empty($this->categories)) {
-            if (empty($this->styles)) {
-                $this->loadCategories();
+        if (empty($this->styles)) {
+            $this->loadCategories();
+        }
+
+        switch ($type) {
+            case 'beer':
+                $index = 0;
+                break;
+            case 'mead':
+                $index = 1;
+                break;
+            case 'cider':
+                $index = 2;
+                break;
+        }
+
+        if (isset($index)) {
+            $this->categories = [];
+
+            foreach ($this->styles['styleguide']['class'][$index]['category'] as $style) {
+                $this->categories[] = $this->hydrator->hydrate($style, 'category');
             }
 
-            switch ($type) {
-                case 'beer':
-                    $index = 0;
-                    break;
-                case 'mead':
-                    $index = 1;
-                    break;
-                case 'cider':
-                    $index = 2;
-                    break;
-            }
-
-            if (isset($index)) {
-                $this->categories = [];
-
-                foreach ($this->styles['styleguide']['class'][$index]['category'] as $style) {
-                    $this->categories[] = $this->hydrator->hydrate($style, 'category');
-                }
-
-                return $this->categories;
-            }
-        } else {
             return $this->categories;
+        } else {
+            return [];
         }
     }
 

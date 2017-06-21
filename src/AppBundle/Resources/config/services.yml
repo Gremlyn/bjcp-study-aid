@@ -14,3 +14,9 @@ services:
         class: AppBundle\Twig\OutputExtension
         tags:
             - { name: twig.extension }
+
+    build.sitemap:
+        class: AppBundle\Command\BuildSitemapCommand
+        arguments: ['@beer.info']
+        tags:
+            - { name: console.command }
