@@ -53,19 +53,19 @@ OUTRO;
             $sitemap .= <<<ENTRY
     <url>
         <loc>https://bjcp.thegremlyn.com</loc>
-        <lastmod>{$echo($now->format('Y-m-d H:i:s'))}</lastmod>
+        <lastmod>{$echo($now->format('Y-m-d'))}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
         <url>
         <loc>https://bjcp.thegremlyn.com/quiz</loc>
-        <lastmod>{$echo($now->format('Y-m-d H:i:s'))}</lastmod>
+        <lastmod>{$echo($now->format('Y-m-d'))}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>{$url}</loc>
-        <lastmod>{$echo($now->format('Y-m-d H:i:s'))}</lastmod>
+        <lastmod>{$echo($now->format('Y-m-d'))}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -77,7 +77,7 @@ ENTRY;
                     $sitemap .= <<<ENTRY
     <url>
         <loc>{$url}?l={$cindex}cs{$sindex}</loc>
-        <lastmod>{$echo($now->format('Y-m-d H:i:s'))}</lastmod>
+        <lastmod>{$echo($now->format('Y-m-d'))}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
